@@ -17,18 +17,18 @@ def transcription_or_translation(target, machinery, initiation, elongation, prod
     dproduct_dt =                                                               elongation*kc
     return np.array([dtarget_dt, dmachinery_dt, dinitiation_dt, delongation_dt, dproduct_dt])
 
-def mRNA_3miRNAdegradation_fullpathway( target, mi, X, R, L, Y, Nm, target_inv, k1, k2, k3, m_or_C):
+def mRNA_3miRNAdegradation_fullpathway( target, mi, X, R, L, Y, Nm, target_inv, k1, k2, k3, m_or_C, TS):
     scale  = Nm /(target+target_inv + (1*10**(-50)) )
     dNm_dt, dCm_dt = 0, 0
-    dtarget_dt, dmi_dt ,  dL_dt_1                     = mRNA_binding_SIMP2(target, mi, scale, k1)
+    dtarget_dt, dmi_dt ,  dL_dt_1                     = mRNA_binding_SIMP2(target, mi, scale, k1*TS)
     dL_dt_2   , dX_dt_1, dNm_dt, dY_dt_1            = mRNA_binding_SIMP(L, X, scale, k2)
     dY_dt_2   , dX_dt_2, dR_dt                       = mRNA_degradation_SIMP(Y, scale, k3, m_or_C)
     return np.array([dtarget_dt, dmi_dt, sum([dX_dt_1, dX_dt_2]), dR_dt, sum([dL_dt_1, dL_dt_2]), sum([dY_dt_1, dY_dt_2]), dNm_dt, dCm_dt])
 
-def mRNA_5miRNAdegradation_fullpathway(target, mi, X, R, L, Y, Nm, K, target_inv, k1, k2, k3, m_or_C):
+def mRNA_5miRNAdegradation_fullpathway(target, mi, X, R, L, Y, Nm, K, target_inv, k1, k2, k3, m_or_C, TS):
     scale  = Nm /(target+target_inv + (1*10**(-50)) )
     dNm_dt, dtarget_inv_dt = 0, 0
-    dtarget_dt, dmi_dt , dNm_dt  , dL_dt_1, dK_dt_1 = mRNA_binding(target, mi, scale, k1)
+    dtarget_dt, dmi_dt , dNm_dt  , dL_dt_1, dK_dt_1 = mRNA_binding(target, mi, scale, k1*TS)
     dL_dt_2   , dX_dt_1, dK_dt_2, dY_dt_1          = mRNA_binding_SIMP(L, X, scale, k2)
     dY_dt_2   , dX_dt_2, dR_dt                     = mRNA_degradation_SIMP(Y, scale, k3, m_or_C)
     return np.array([dtarget_dt, dmi_dt, sum([dX_dt_1, dX_dt_2]), dR_dt, sum([dL_dt_1, dL_dt_2]), sum([dY_dt_1, dY_dt_2]), dNm_dt, sum([dK_dt_1, dK_dt_2]), dtarget_inv_dt])
