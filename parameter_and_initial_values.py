@@ -8,7 +8,7 @@ w = 800
 h = 300
 
 Initial_values_dict = {
-    "D_R" : 1 ,
+    "D_R" : 10 ,
     "Cd_R": 0 ,
     "Nd_R": 0 ,
     "m_R" : 0 ,
@@ -19,7 +19,7 @@ Initial_values_dict = {
     "Bm_R": 0 ,
     "P_R" : 0 ,
     
-    "D_G" : 1 ,
+    "D_G" : 10 ,
     "Cd_G": 0 ,
     "Nd_G": 0 ,
     "m_G" : 0 ,
@@ -30,7 +30,7 @@ Initial_values_dict = {
     "Bm_G": 0 ,
     "P_G" : 0 ,
     
-    "D_N" : 100 ,
+    "D_N" : 1000 ,
     "Cd_N": 0 ,
     "Nd_N": 0 ,
     "m_N" : 0 ,
@@ -41,9 +41,9 @@ Initial_values_dict = {
     "Bm_N": 0 ,
     "P_N" : 0 ,
     
-    "Pol" : 100000 ,
-    "Rib" : 100000 ,
-    "Exo" : 5000 ,
+    "Pol" : 10000 ,
+    "Rib" : 10000 ,
+    "Exo" : 100 ,
     
     "D_3"  : 1,
     "Cd_3" : 0,
@@ -91,45 +91,47 @@ Initial_values_dict = {
 
 
 Rates_values_dict = {
-    "kd_p" : 1 ,
-    "kd_m" : 1 ,
-    "kd"   : 1 ,
-    "kd_c" : 1 ,
+    "kd_p" : 0.1 ,
+    "kd_m" : 0.1 ,
+    "kd"   : 0.1 ,
+    "kd_c" : 0.1 ,
     
-    "km_p" : 1 ,
-    "km_m" : 1 ,
-    "km"   : 1 ,
-    "km_c" : 1 ,
+    "km_p" : 0.1 ,
+    "km_m" : 0.1 ,
+    "km"   : 0.1 ,
+    "km_c" : 0.1 ,
     
-    "kbind"  : 0.1, 
-    "kX_m"   : 0.001,
-    "kX_3"   : 0.1,
-    "kX_5"   : 0.1,
-    "kdeg"   : 0.1,
-    "lam_P"  : 0.0025,
-    "lam_mi" : 0.0025,
+    "kbind"  : 0.0017, 
+    "kX_m"   : 0.005,
+    "kX_3"   : 0.017,
+    "kX_5"   : 0.017,
+    "kdeg"   : 1,
+    "lam_P"  : 0.00025,
+    "lam_mi" : 0.005,
 }
 
-delta = 10**-10
+delta1 = 0.1
+delta2 = 0.1
+
 
 Rates_bounds_dict = {
-    "kd_p" : [1 -delta, 1 +delta] ,
-    "kd_m" : [1 -delta, 1 +delta] ,
-    "kd"   : [1 -delta, 1 +delta] ,
-    "kd_c" : [1 -delta, 1 +delta] ,
+    "kd_p" : [Rates_values_dict["kd_p"] -(delta2*Rates_values_dict["kd_p"]), Rates_values_dict["kd_p"] +(delta2*Rates_values_dict["kd_p"])] ,
+    "kd_m" : [Rates_values_dict["kd_m"] -(delta2*Rates_values_dict["kd_m"]), Rates_values_dict["kd_m"] +(delta2*Rates_values_dict["kd_m"])] ,
+    "kd"   : [Rates_values_dict["kd"]   -(delta2*Rates_values_dict["kd"]),   Rates_values_dict["kd"]   +(delta2*Rates_values_dict["kd"])] ,
+    "kd_c" : [Rates_values_dict["kd_c"] -(delta2*Rates_values_dict["kd_c"]), Rates_values_dict["kd_c"] +(delta2*Rates_values_dict["kd_c"])] ,
     
-    "km_p" : [1 -delta, 1 +delta] ,
-    "km_m" : [1 -delta, 1 +delta] ,
-    "km"   : [1 -delta, 1 +delta] ,
-    "km_c" : [1 -delta, 1 +delta] ,
+    "km_p" : [Rates_values_dict["km_p"] -(delta2*Rates_values_dict["km_p"]), Rates_values_dict["km_p"] +(delta2*Rates_values_dict["km_p"])] ,
+    "km_m" : [Rates_values_dict["km_m"] -(delta2*Rates_values_dict["km_m"]), Rates_values_dict["km_m"] +(delta2*Rates_values_dict["km_m"])] ,
+    "km"   : [Rates_values_dict["km"]   -(delta2*Rates_values_dict["km"]),   Rates_values_dict["km"]   +(delta2*Rates_values_dict["km"])] ,
+    "km_c" : [Rates_values_dict["km_c"] -(delta2*Rates_values_dict["km_c"]), Rates_values_dict["km_c"] +(delta2*Rates_values_dict["km_c"])] ,
     
-    "kbind"  : [0.01    -delta  , 0.2    +delta   ] ,
-    "kX_m"   : [0.0001  -delta  , 0.002  +delta   ] ,
-    "kX_3"   : [0.01  , 0.2  ] ,
-    "kX_5"   : [0.01  , 0.2  ] ,
-    "kdeg"   : [0.01    -delta  , 0.2    +delta   ] ,
-    "lam_P"  : [0.00025 -delta  , 0.005  +delta   ] ,
-    "lam_mi" : [0.00025 -delta  , 0.005   +delta  ] ,
+    "kbind"  : [Rates_values_dict["kbind"] -(delta1*Rates_values_dict["kbind"]), Rates_values_dict["kbind"] +(delta1*Rates_values_dict["kbind"])] ,
+    "kX_m"   : [Rates_values_dict["kX_m"]  -(delta1*Rates_values_dict["kX_m"]),  Rates_values_dict["kX_m"]  +(delta1*Rates_values_dict["kX_m"])] ,
+    "kX_3"   : [Rates_values_dict["kX_3"]  -(delta1*Rates_values_dict["kX_3"]),  Rates_values_dict["kX_3"]  +(delta1*Rates_values_dict["kX_3"])] ,
+    "kX_5"   : [Rates_values_dict["kX_5"]  -(delta1*Rates_values_dict["kX_5"]),  Rates_values_dict["kX_5"]  +(delta1*Rates_values_dict["kX_5"])] ,
+    "kdeg"   : [Rates_values_dict["kdeg"]  -(delta1*Rates_values_dict["kdeg"]),  Rates_values_dict["kdeg"]  +(delta1*Rates_values_dict["kdeg"])] ,
+    "lam_P"  : [Rates_values_dict["lam_P"] -(delta1*Rates_values_dict["lam_P"]), Rates_values_dict["lam_P"] +(delta1*Rates_values_dict["lam_P"])] ,
+    "lam_mi" : [Rates_values_dict["lam_mi"] -(delta1*Rates_values_dict["lam_mi"]), Rates_values_dict["lam_mi"] +(delta1*Rates_values_dict["lam_mi"])] ,
 }
 
 scale = 20
